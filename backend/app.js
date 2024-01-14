@@ -1,10 +1,23 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
+const mongoose = require("mongoose");
 
-app.get("/", (req, res) => {
-  res.send("Hi from Node js");
-});
+// IMPORT ROUTES
+const userRouters = require("./routes/user");
+
+// CONNECT DATABASE
+mongoose
+  .connect(process.env.DATABASE, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  })
+  .then(() => console.log("DB connected"))
+  .catch((err) => console.log("DB connection error:", err));
+
+// MIDDLEWARE
+app.use("/api", userRouters);
 
 const port = process.env.PORT || 8000;
 
