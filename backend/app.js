@@ -4,6 +4,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
+const cors = require('cors');
 const cookieparser = require('cookie-parser');
 const errorHandler = require('./middleware/error');
 
@@ -26,6 +27,7 @@ mongoose
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(cookieparser());
+app.use(cors());
 
 // ROUTES MIDDLEWARE
 app.use("/api", userRouters);
